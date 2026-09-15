@@ -1,0 +1,22 @@
+package com.micacharrito.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import java.util.List;
+
+@Data
+@Entity
+@Table(name = "tipo_vehiculo")
+public class TipoVehiculo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_tipo")
+    private Long idTipo;
+
+    @Column(name = "nombre_tipo", unique = true, length = 50, nullable = false)
+    private String nombreTipo;
+
+    @OneToMany(mappedBy = "tipoVehiculo", cascade = CascadeType.ALL)
+    private List<Vehiculo> vehiculos;
+}
