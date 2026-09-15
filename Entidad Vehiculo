@@ -1,0 +1,36 @@
+package com.micacharrito.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import java.math.BigDecimal;
+import java.util.List;
+
+@Data
+@Entity
+@Table(name = "vehiculo")
+public class Vehiculo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_vehiculo")
+    private Long idVehiculo;
+
+    @Column(unique = true, length = 10, nullable = false)
+    private String placa;
+
+    @Column(length = 50)
+    private String color;
+
+    @Column(name = "valor_dia", precision = 10, scale = 2)
+    private BigDecimal valorDia;
+
+    @Column(length = 50)
+    private String estado;
+
+    @ManyToOne
+    @JoinColumn(name = "id_tipo", nullable = false)
+    private TipoVehiculo tipoVehiculo;
+
+    @OneToMany(mappedBy = "vehiculo")
+    private List<Alquiler> alquileres;
+}
