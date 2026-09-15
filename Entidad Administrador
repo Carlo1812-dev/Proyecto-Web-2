@@ -1,0 +1,25 @@
+package com.micacharrito.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import java.util.List;
+
+@Data
+@Entity
+@Table(name = "administrador")
+public class Administrador {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_administrador")
+    private Long idAdministrador;
+
+    @Column(unique = true, length = 50, nullable = false)
+    private String usuario;
+
+    @Column(length = 100, nullable = false)
+    private String password;
+
+    @OneToMany(mappedBy = "administrador")
+    private List<Alquiler> alquileres;
+}
