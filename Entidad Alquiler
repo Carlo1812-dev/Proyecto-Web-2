@@ -1,0 +1,51 @@
+package com.micacharrito.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+@Data
+@Entity
+@Table(name = "alquiler")
+public class Alquiler {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_alquiler")
+    private Long idAlquiler;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "id_vehiculo", nullable = false)
+    private Vehiculo vehiculo;
+
+    // Puede ser null al inicio, ya que el usuario crea la solicitud antes de que un admin la gestione
+    @ManyToOne
+    @JoinColumn(name = "id_admin")
+    private Administrador administrador;
+
+    @Column(name = "fecha_inicio", nullable = false)
+    private LocalDate fechaInicio;
+
+    @Column(name = "fecha_entrega_programada", nullable = false)
+    private LocalDate fechaEntregaProgramada;
+
+    @Column(name = "fecha_entrega_real")
+    private LocalDate fechaEntregaReal;
+
+    @Column(name = "valor_alquiler", precision = 10, scale = 2)
+    private BigDecimal valorAlquiler;
+
+    @Column(name = "dias_adicionales")
+    private Integer diasAdicionales;
+
+    @Column(name = "valor_adicional", precision = 10, scale = 2)
+    private BigDecimal valorAdicional;
+
+    @Column(length = 50, nullable = false)
+    private String estado;
+}
